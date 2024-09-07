@@ -10,8 +10,8 @@ export default function Suggestions() {
     <div className="w-1192 mx-auto p-4">
       <Card className="p-4 mb-[50px]">
         <h1 className="block w-[985px] mb-[84px] m-auto text-center text-28px font-semibold mt-[20px]">
-          Power down today, light up tomorrow—save energy, save the future. Here
-          are some suggestions.
+          Power down today, light up tomorrow—save energy, save the future.
+          <br /> Here are some suggestions.
         </h1>
         <div className="flex gap-5 mb-[100px]">
           <CardItem
@@ -35,9 +35,9 @@ export default function Suggestions() {
 "
           />
         </div>
-        <h2 className="block w-[985px] m-auto text-center text-28px font-semibold mb-6">
-          Small steps spark big change—level up and own your emissions. Cut your
-          emissions and win for the planet and ypurself
+        <h2 className="block w-[940px] m-auto text-center text-28px font-semibold mb-6">
+          Small steps spark big change—level up and own your emissions.
+          <br /> Cut your emissions and win for the planet and yourself.
         </h2>
       </Card>
     </div>

@@ -9,7 +9,7 @@ export default function FoodSuggestions() {
     <div className="w-1192 mx-auto p-4">
       <Card className="p-4 mb-[50px]">
         <h1 className="block w-[985px] mb-[84px] m-auto text-center text-28px font-semibold mt-[20px]">
-          Waste less, savor more—eat smart, live better Here are some
+          Waste less, savor more—eat smart, live better. <br /> Here are some
           suggestions.
         </h1>
         <div className="flex gap-5 mb-[100px]">
@@ -35,7 +35,7 @@ export default function FoodSuggestions() {
           />
         </div>
         <h2 className="block w-[985px] m-auto text-center text-28px font-semibold mb-6">
-          Cut food waste, earn rewards. save more, win more
+          Cut food waste, earn rewards. Save more, win more.
         </h2>
       </Card>
     </div>

@@ -36,7 +36,7 @@ export default function CarSuggestion() {
           />
         </div>
         <h2 className="block w-[985px] m-auto text-center text-28px font-semibold mb-6">
-          Let your car rest—discover more by driving less. Less car, more
+          Let your car rest—discover more by driving less. <br /> Less car, more
           rewards
         </h2>
       </Card>
