@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+import UserMenu from "@/components/UserMenu";
+import { Poppins } from "next/font/google";
+import { NextUIProvider } from "@nextui-org/react";
+import ContributionArea from "@/components/ContributionArea";
+import dynamic from "next/dynamic";
+import FootPrint from "@/components/footprint/FootPrint";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const ClientSideGraph = dynamic(() => import("@/components/ClientSideGraph"), {
+  ssr: false,
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const poppins = Poppins({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -25,10 +31,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={poppins.className}>
+        <NextUIProvider>
+          <div className="w-1192 mx-auto p-4 flex gap-[20px]">
+            <div className="flex flex-col">
+              <UserMenu />
+              <ContributionArea />
+            </div>
+            <ClientSideGraph />
+          </div>
+          {children}
+          <FootPrint
+            data={{
+              week: [30, 40, 20],
+              month: [120, 200, 80],
+              year: [600, 1000, 400],
+            }}
+          />
+        </NextUIProvider>
       </body>
     </html>
   );
