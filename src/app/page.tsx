@@ -36,29 +36,29 @@ export default function Home() {
   const [llmData, setLlmData] = useState([]);
   const [webpagesData, setWebpagesData] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchConsumption = async () => {
-  //     const response = await axios.get("http://10.211.138.1:3001/api/streams");
-  //     const currentTimestamp = new Date().toLocaleTimeString();
+  useEffect(() => {
+    const fetchConsumption = async () => {
+      const response = await axios.get("http://10.211.138.1:3001/api/streams");
+      const currentTimestamp = new Date().toLocaleTimeString();
 
-  //     setData(response.data);
-  //     setLlm(response.data.consumptionOfLLMs);
-  //     setWapages(response.data.consumptionOfWebpages);
+      setData(response.data);
+      setLlm(response.data.consumptionOfLLMs);
+      setWapages(response.data.consumptionOfWebpages);
 
-  //     // Update graph data
-  //     setTimestamps((prev) => [...prev, currentTimestamp] as any);
-  //     setLlmData((prev) => [...prev, response.data.consumptionOfLLMs] as any);
-  //     setWebpagesData(
-  //       (prev) => [...prev, response.data.consumptionOfWebpages] as any
-  //     );
-  //   };
+      // Update graph data
+      setTimestamps((prev) => [...prev, currentTimestamp] as any);
+      setLlmData((prev) => [...prev, response.data.consumptionOfLLMs] as any);
+      setWebpagesData(
+        (prev) => [...prev, response.data.consumptionOfWebpages] as any
+      );
+    };
 
-  //   fetchConsumption();
+    fetchConsumption();
 
-  //   const intervalId = setInterval(fetchConsumption, 5000);
+    const intervalId = setInterval(fetchConsumption, 5000);
 
-  //   return () => clearInterval(intervalId);
-  // }, []);
+    return () => clearInterval(intervalId);
+  }, []);
 
   const chartData = {
     labels: timestamps,

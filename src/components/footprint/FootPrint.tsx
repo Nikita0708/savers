@@ -34,13 +34,20 @@ interface HorizontalBarChartProps {
 const FootPrint: React.FC<HorizontalBarChartProps> = ({ data }) => {
   const [selectedPeriod, setSelectedPeriod] = useState<string>("week"); // Default to "week"
 
-  // Data corresponding to the selected time period
+  // Safely retrieve the data for the selected period
+  const periodData = data[selectedPeriod as keyof typeof data];
+
+  // If periodData is undefined or not available, return an error message
+  if (!periodData) {
+    return <div>Error: Data for the selected period is unavailable.</div>;
+  }
+
   const chartData = {
     labels: ["Energy", "Transportation", "Food Waste"],
     datasets: [
       {
         label: "Impact",
-        data: data[selectedPeriod as keyof typeof data], // Use the selected period's data
+        data: periodData, // Use the selected period's data
         backgroundColor: ["#f2c94c", "#eb5757", "#27ae60"], // Yellow, Red, Green
         borderRadius: 10, // Rounded corners for the bars
         barThickness: 20, // Adjust bar height
@@ -48,12 +55,15 @@ const FootPrint: React.FC<HorizontalBarChartProps> = ({ data }) => {
     ],
   };
 
+  // Safely calculate max value, with a fallback in case the data is empty
+  const maxDataValue = periodData.length ? Math.max(...periodData) + 10 : 10;
+
   const options = {
     indexAxis: "y" as const, // Make the chart horizontal
     scales: {
       x: {
         beginAtZero: true,
-        max: Math.max(...data[selectedPeriod as keyof typeof data]) + 10, // Add space at the end
+        max: maxDataValue, // Add space at the end
         ticks: {
           padding: 5, // Add padding around ticks
         },
@@ -83,9 +93,14 @@ const FootPrint: React.FC<HorizontalBarChartProps> = ({ data }) => {
               selectedKeys={new Set([selectedPeriod])}
               className="max-w-xs"
               size="sm"
-              onSelectionChange={(key) =>
-                setSelectedPeriod(key.currentKey as any)
-              }
+              onSelectionChange={(key) => {
+                const newPeriod = key.currentKey as keyof typeof data;
+                if (newPeriod in data) {
+                  setSelectedPeriod(newPeriod);
+                } else {
+                  console.error(`Invalid period selected: ${newPeriod}`);
+                }
+              }}
             >
               {overallPeriods.map((period) => (
                 <SelectItem key={period.key} value={period.key}>
